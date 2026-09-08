@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="FGCU Talon CTF — browser-based Capture the Flag training for the FGCU Cybersecurity Concentration."
+    />
+    <title>FGCU Talon CTF</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <!-- DEV NOTE: remove before prod - test flag FGCU{inspect_element_is_your_friend} -->
+  </head>
+  <body class="body--landing">
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <div id="success-overlay" class="success-overlay" aria-hidden="true">
+      <div id="confetti-host" class="confetti-host" aria-hidden="true"></div>
+    </div>
+    <div
+      id="access-banner"
+      class="access-banner"
+      role="status"
+      aria-live="polite"
+    >
+      <span class="access-banner__title">ACCESS GRANTED</span>
+      <span id="success-points" class="access-banner__pts"></span>
+    </div>
+
+    <main id="main-content">
+      <section
+        id="view-landing"
+        class="view view--landing view--active"
+        aria-label="Landing"
+      >
+        <div class="matrix-wrap" aria-hidden="true">
+          <canvas id="matrix-canvas" width="1200" height="600"></canvas>
+        </div>
+        <div class="hero-inner scanlines">
+          <p class="hero-tag">&lt; talon.sec.fgcu /&gt;</p>
+          <h1 class="hero-title">
+            FGCU Talon CTF<span class="cursor-blink" aria-hidden="true">_</span>
+          </h1>
+          <p class="hero-sub">
+            Capture the Flag training platform for the FGCU Cybersecurity
+            Concentration
+          </p>
+          <button type="button" class="btn btn-cta" id="btn-enter">
+            [ ENTER PLATFORM ]
+          </button>
+        </div>
+
+        <div class="landing-content">
+          <section class="explain" aria-labelledby="what-ctf-heading">
+            <h2 id="what-ctf-heading" class="section-title">
+              { What is CTF? }
+            </h2>
+            <div class="explain-grid">
+              <article class="explain-card">
+                <div class="explain-icon" aria-hidden="true">&lt;/&gt;</div>
+                <h3>Jeopardy vs. attack-defense</h3>
+                <p>
+                  <strong>Jeopardy-style</strong> CTFs present categories
+                  (crypto, web, forensics) with independent challenges you solve
+                  for points. <strong>Attack-defense</strong> adds live networks:
+                  you harden a service while opponents probe it—closer to
+                  real-time security operations.
+                </p>
+              </article>
+              <article class="explain-card">
+                <div class="explain-icon" aria-hidden="true">[✓]</div>
+                <h3>Why it matters</h3>
+                <p>
+                  CTFs build pattern recognition, tool fluency, and teamwork.
+                  They bridge lecture concepts and industry scenarios—resume-ready
+                  proof that you can think under pressure and document findings.
+                </p>
+              </article>
+              <article class="explain-card">
+                <div class="explain-icon" aria-hidden="true">{*}</div>
+                <h3>Skill areas</h3>
+                <p>
+                  Typical tracks include cryptography, web exploitation,
+                  forensics, reverse engineering, OSINT, and binary analysis—each
+                  reinforcing the mindset: observe, hypothesize, verify, report.
+                </p>
+              </article>
+            </div>
+          </section>
+
+          <section class="stats-strip" aria-label="Platform facts">
+            <p>
+              <span class="stat-num">6</span> Challenges &nbsp;|&nbsp;
+              <span class="stat-num">4</span> Categories &nbsp;|&nbsp;
+              <span class="stat-num stat-num--flash" title="No signup required"
+                >0</span
+              >
+              Accounts Required
+            </p>
+          </section>
+        </div>
+      </section>
+
+      <section id="view-dashboard" class="view view--dashboard" hidden>
+        <header class="top-bar">
+          <div class="brand">
+            <span class="brand__mark" aria-hidden="true">&lt;</span>
+            <span class="brand__text">FGCU Talon CTF</span>
+            <span class="brand__mark" aria-hidden="true">/&gt;</span>
+          </div>
+          <label class="handle-wrap">
+            <span class="handle-label">Handle</span>
+            <input
+              id="player-handle"
+              class="handle-input"
+              type="text"
+              maxlength="32"
+              autocomplete="nickname"
+              aria-label="Player handle"
+            />
+          </label>
+          <button
+            type="button"
+            class="btn btn-nav"
+            id="btn-scoreboard-nav"
+          >
+            Scoreboard
+          </button>
+        </header>
+
+        <div class="dashboard-inner">
+          <p id="progress-summary" class="progress-summary" role="status"></p>
+          <div
+            class="filter-chips"
+            role="toolbar"
+            aria-label="Filter challenges by category"
+          >
+            <button type="button" class="chip chip--active" data-filter="all">
+              All
+            </button>
+            <button type="button" class="chip" data-filter="crypto">
+              Crypto
+            </button>
+            <button type="button" class="chip" data-filter="web">Web</button>
+            <button type="button" class="chip" data-filter="forensics">
+              Forensics
+            </button>
+            <button type="button" class="chip" data-filter="reverse">
+              Reverse
+            </button>
+            <button type="button" class="chip" data-filter="stego">
+              Steganography
+            </button>
+            <button type="button" class="chip" data-filter="osint">OSINT</button>
+          </div>
+          <div id="challenge-grid" class="challenge-grid"></div>
+        </div>
+      </section>
+
+      <section id="view-challenge" class="view view--challenge" hidden>
+        <header class="challenge-top">
+          <button
+            type="button"
+            class="btn btn-back"
+            id="btn-back-dashboard"
+            aria-label="Back to dashboard"
+          >
+            ← Back
+          </button>
+        </header>
+        <article class="challenge-article">
+          <h2 id="challenge-title" class="challenge-h2"></h2>
+          <p id="challenge-meta" class="challenge-meta"></p>
+          <div id="challenge-body" class="challenge-body"></div>
+
+          <section
+            id="challenge-resources"
+            class="challenge-resources"
+            aria-label="Resources"
+          ></section>
+
+          <div id="osint-live-panel" class="osint-live-panel" hidden></div>
+
+          <section id="challenge-hints" class="challenge-hints"></section>
+
+          <section class="flag-section" aria-labelledby="flag-heading">
+            <h3 id="flag-heading">Submit flag</h3>
+            <div class="flag-row">
+              <input
+                id="flag-input"
+                class="flag-input"
+                type="text"
+                placeholder="FGCU{...}"
+                autocomplete="off"
+                spellcheck="false"
+                aria-label="Flag submission"
+              />
+              <button type="button" class="btn btn-primary" id="btn-submit-flag">
+                Submit
+              </button>
+            </div>
+            <p id="flag-feedback" class="flag-feedback" role="status"></p>
+          </section>
+        </article>
+      </section>
+
+      <section id="view-scoreboard" class="view view--scoreboard" hidden>
+        <header class="scoreboard-header">
+          <button
+            type="button"
+            class="btn btn-back"
+            id="btn-back-dashboard-2"
+            aria-label="Back to dashboard"
+          >
+            ← Dashboard
+          </button>
+          <div class="live-title">
+            <span class="live-dot" aria-hidden="true"></span>
+            <h2>Live Scoreboard</h2>
+          </div>
+        </header>
+        <div class="table-wrap">
+          <table class="score-table">
+            <thead>
+              <tr>
+                <th scope="col">Rank</th>
+                <th scope="col">Handle</th>
+                <th scope="col">Solves</th>
+                <th scope="col">Points</th>
+                <th scope="col">Last solve</th>
+              </tr>
+            </thead>
+            <tbody id="scoreboard-body"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="js/app.js"></script>
+  </body>
+</html>

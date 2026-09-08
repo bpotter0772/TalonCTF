@@ -1,0 +1,55 @@
+# FGCU Talon CTF — simulated sshd auth excerpt (24h window)
+# Fields: timestamp host sshd pid message
+
+2024-11-02T08:12:01Z lab-sshd01 sshd[1201]: Failed password for invalid user admin from 10.0.4.88 port 22112 ssh2
+2024-11-02T08:12:03Z lab-sshd01 sshd[1201]: Connection closed by authenticating user admin 10.0.4.88 port 22112 [preauth]
+2024-11-02T08:15:22Z lab-sshd01 sshd[1204]: Accepted password for svc_backup from 172.16.8.12 port 55401 ssh2
+2024-11-02T08:18:44Z lab-sshd01 sshd[1210]: Failed password for root from 203.0.113.50 port 40221 ssh2
+2024-11-02T08:18:46Z lab-sshd01 sshd[1210]: Failed password for root from 203.0.113.50 port 40222 ssh2
+2024-11-02T08:19:01Z lab-sshd01 sshd[1212]: Accepted password for devuser from 198.51.100.9 port 33011 ssh2
+2024-11-02T08:22:33Z lab-sshd01 sshd[1215]: Failed password for invalid user oracle from 192.168.45.88 port 51002 ssh2
+2024-11-02T08:22:35Z lab-sshd01 sshd[1215]: Failed password for invalid user oracle from 192.168.45.88 port 51003 ssh2
+2024-11-02T08:24:11Z lab-sshd01 sshd[1218]: Accepted password for qa from 192.168.12.40 port 44100 ssh2
+2024-11-02T08:31:02Z lab-sshd01 sshd[1221]: Failed password for git from 192.168.45.201 port 51200 ssh2
+2024-11-02T08:31:04Z lab-sshd01 sshd[1221]: Failed password for git from 192.168.45.201 port 51201 ssh2
+2024-11-02T08:31:07Z lab-sshd01 sshd[1221]: Failed password for git from 192.168.45.201 port 51202 ssh2
+2024-11-02T08:31:09Z lab-sshd01 sshd[1221]: Failed password for git from 192.168.45.201 port 51203 ssh2
+2024-11-02T08:31:11Z lab-sshd01 sshd[1221]: Failed password for git from 192.168.45.201 port 51204 ssh2
+2024-11-02T08:31:18Z lab-sshd01 sshd[1221]: Accepted password for git from 192.168.45.201 port 51205 ssh2
+2024-11-02T08:35:44Z lab-sshd01 sshd[1224]: Failed password for root from 10.10.10.5 port 60001 ssh2
+2024-11-02T08:35:46Z lab-sshd01 sshd[1224]: Failed password for root from 10.10.10.5 port 60002 ssh2
+2024-11-02T08:36:00Z lab-sshd01 sshd[1226]: Connection reset by 10.10.10.5 port 60003 [preauth]
+2024-11-02T08:40:12Z lab-sshd01 sshd[1229]: Failed password for invalid user test from 192.168.45.201 port 52000 ssh2
+2024-11-02T08:40:14Z lab-sshd01 sshd[1229]: Failed password for invalid user test from 192.168.45.201 port 52001 ssh2
+2024-11-02T08:41:02Z lab-sshd01 sshd[1231]: Accepted password for build from 192.168.45.201 port 52010 ssh2
+2024-11-02T08:45:33Z lab-sshd01 sshd[1234]: Failed password for ubuntu from 172.16.0.5 port 40111 ssh2
+2024-11-02T08:45:35Z lab-sshd01 sshd[1234]: Failed password for ubuntu from 172.16.0.5 port 40112 ssh2
+2024-11-02T08:45:37Z lab-sshd01 sshd[1234]: Failed password for ubuntu from 172.16.0.5 port 40113 ssh2
+2024-11-02T08:46:01Z lab-sshd01 sshd[1236]: Accepted password for ubuntu from 172.16.0.5 port 40114 ssh2
+2024-11-02T08:52:19Z lab-sshd01 sshd[1239]: Invalid user hacker from 198.51.100.22 port 33200
+2024-11-02T08:52:21Z lab-sshd01 sshd[1239]: Failed password for invalid user hacker from 198.51.100.22 port 33200 ssh2
+2024-11-02T08:55:40Z lab-sshd01 sshd[1242]: Accepted password for monitor from 10.0.0.15 port 22001 ssh2
+2024-11-02T09:01:03Z lab-sshd01 sshd[1245]: Failed password for root from 192.168.99.7 port 44002 ssh2
+2024-11-02T09:01:05Z lab-sshd01 sshd[1245]: Failed password for root from 192.168.99.7 port 44003 ssh2
+2024-11-02T09:02:11Z lab-sshd01 sshd[1248]: Accepted password for root from 192.168.99.7 port 44010 ssh2
+2024-11-02T09:08:27Z lab-sshd01 sshd[1251]: Failed password for deploy from 192.168.45.33 port 53001 ssh2
+2024-11-02T09:08:29Z lab-sshd01 sshd[1251]: Failed password for deploy from 192.168.45.33 port 53002 ssh2
+2024-11-02T09:09:00Z lab-sshd01 sshd[1253]: Accepted password for deploy from 192.168.45.33 port 53003 ssh2
+2024-11-02T09:15:44Z lab-sshd01 sshd[1256]: Connection closed by authenticating user guest 203.0.113.10 port 51222 [preauth]
+2024-11-02T09:22:01Z lab-sshd01 sshd[1259]: Accepted password for student from 192.168.1.50 port 55500 ssh2
+2024-11-02T09:28:18Z lab-sshd01 sshd[1262]: Failed password for admin from 10.0.4.88 port 22301 ssh2
+2024-11-02T09:28:20Z lab-sshd01 sshd[1262]: Failed password for admin from 10.0.4.88 port 22302 ssh2
+2024-11-02T09:29:05Z lab-sshd01 sshd[1264]: Accepted password for admin from 10.0.4.88 port 22303 ssh2
+2024-11-02T09:35:52Z lab-sshd01 sshd[1267]: Failed password for invalid user postgres from 172.16.8.99 port 44122 ssh2
+2024-11-02T09:40:11Z lab-sshd01 sshd[1270]: Accepted password for dbadmin from 172.16.8.99 port 44130 ssh2
+2024-11-02T09:48:33Z lab-sshd01 sshd[1273]: Failed password for root from 198.51.100.200 port 39001 ssh2
+2024-11-02T09:48:35Z lab-sshd01 sshd[1273]: Failed password for root from 198.51.100.200 port 39002 ssh2
+2024-11-02T09:49:00Z lab-sshd01 sshd[1275]: Connection closed by 198.51.100.200 port 39003 [preauth]
+2024-11-02T09:55:07Z lab-sshd01 sshd[1278]: Accepted password for ci from 10.0.1.20 port 22100 ssh2
+2024-11-02T10:01:29Z lab-sshd01 sshd[1281]: Failed password for invalid user ansible from 192.168.45.201 port 54000 ssh2
+2024-11-02T10:01:31Z lab-sshd01 sshd[1281]: Failed password for invalid user ansible from 192.168.45.201 port 54001 ssh2
+2024-11-02T10:02:00Z lab-sshd01 sshd[1283]: Accepted password for ansible from 192.168.45.201 port 54002 ssh2
+2024-11-02T10:08:44Z lab-sshd01 sshd[1286]: Accepted password for vpn from 172.16.20.3 port 1194 ssh2
+2024-11-02T10:15:02Z lab-sshd01 sshd[1289]: Failed password for root from 192.168.45.201 port 55000 ssh2
+2024-11-02T10:15:05Z lab-sshd01 sshd[1289]: Failed password for root from 192.168.45.201 port 55001 ssh2
+2024-11-02T10:15:40Z lab-sshd01 sshd[1291]: Accepted password for root from 192.168.45.201 port 55002 ssh2
