@@ -2,87 +2,6 @@
   "version": 1,
   "challenges": [
     {
-      "id": "002",
-      "title": "Base Case",
-      "category": "crypto",
-      "categoryLabel": "Cryptography",
-      "points": 200,
-      "difficulty": 2,
-      "flagSha256": "3d5ea8ecd33dc508756da625b0bb48b372fdcbf8f9d0c843fdf82335a2e476f2",
-      "description": "Our network monitor intercepted this suspicious string. Decode it to reveal the flag:\n\n```\nRkdDVXtiYXNlNjRfaXNfbm90X2VuY3J5cHRpb259\n```",
-      "hints": [
-        "The string contains only alphanumeric characters plus `=` — ring any bells?",
-        "It's Base64. Use any online Base64 decoder, or paste it into a browser console with `atob('...')`"
-      ],
-      "resources": []
-    },
-    {
-      "id": "003",
-      "title": "Source of Truth",
-      "category": "web",
-      "categoryLabel": "Web Exploitation",
-      "points": 200,
-      "difficulty": 2,
-      "flagSha256": "66cda2183d45473af22e25f67f1ce091aa0fa5b54c8571db669fc63ef3e0f98d",
-      "description": "A developer left something they shouldn't have in the page source of this challenge. The flag is hidden somewhere in the **HTML, CSS, or JavaScript** of this very page. Developers often leave comments they forget to remove...",
-      "hints": [
-        "Right-click → View Page Source, or press Ctrl+U (Cmd+Option+U on macOS)",
-        "Use Ctrl+F on the source and search for `FGCU{`"
-      ],
-      "resources": []
-    },
-    {
-      "id": "004",
-      "title": "Log Jam",
-      "category": "forensics",
-      "categoryLabel": "Forensics",
-      "points": 300,
-      "difficulty": 3,
-      "flagSha256": "255547d7456f81e51b51a9a72833c5ac2e16d49429a0c55405e25bcff8b7fec4",
-      "description": "An attacker compromised our server. We've pulled the auth logs from the past 24 hours (download below). Find the IP address that successfully logged in **after 5+ failed attempts**. The flag is `FGCU{ip_address_here}` with dots replaced by underscores.",
-      "hints": [
-        "Look for repeated \"Failed password\" entries from the same IP",
-        "Use Ctrl+F to count occurrences, or grep-style thinking: which IP appears in both FAIL and SUCCESS entries?"
-      ],
-      "resources": [
-        { "label": "Download auth.log", "href": "assets/forensics-challenge.txt", "download": "forensics-challenge.txt" }
-      ]
-    },
-    {
-      "id": "005",
-      "title": "Obfuscated",
-      "category": "reverse",
-      "categoryLabel": "Reverse Engineering",
-      "points": 300,
-      "difficulty": 3,
-      "flagSha256": "a44d8ca787902de2fe01311e19e4dc8e7e2388cec435c54bdb844e9b104a64fd",
-      "description": "One of our interns wrote this 'cleverly hidden' flag checker. Too bad it runs in the browser. Figure out what string makes the function return `true`. Download the file below.",
-      "hints": [
-        "Open browser DevTools console, paste the file contents, and experiment with the `checkFlag()` function",
-        "The function reverses the input then XORs each char — work backwards from the hardcoded array"
-      ],
-      "resources": [
-        { "label": "Download reverse-me.js", "href": "assets/reverse-me.js", "download": "reverse-me.js" }
-      ]
-    },
-    {
-      "id": "006",
-      "title": "Breach Report",
-      "category": "osint",
-      "categoryLabel": "OSINT",
-      "points": 500,
-      "difficulty": 5,
-      "flagSha256": "bb4ca8a3ca36f24e59a156fe23cd484e8cc184369588502faf0e0c143729dcfc",
-      "description": "Your task: use the **Have I Been Pwned** public API to find the breach whose `Name` is **Adobe**. Fetch it live and extract the year it happened (the `BreachDate` field, just the 4-digit year). Then count how many data classes were exposed in that breach (length of the `DataClasses` array). The flag is `FGCU{adobe_YEAR_COUNTclasses}` — e.g. if the breach was in 2013 with 7 data classes, the flag would be `FGCU{adobe_2013_7classes}`.",
-      "hints": [
-        "The endpoint is `https://haveibeenpwned.com/api/v3/breaches` — open it in your browser, or use the \"Try it live\" button",
-        "Search the JSON response for the entry where Name is \"Adobe\". Look at BreachDate and DataClasses."
-      ],
-      "resources": [
-        { "label": "HIBP breaches API (opens new tab)", "href": "https://haveibeenpwned.com/api/v3/breaches", "external": true }
-      ]
-    },
-    {
       "id": "007",
       "title": "Crypto 101",
       "category": "crypto",
@@ -98,17 +17,17 @@
       "resources": []
     },
     {
-      "id": "008",
-      "title": "Campus Key",
+      "id": "002",
+      "title": "Base Case",
       "category": "crypto",
       "categoryLabel": "Cryptography",
       "points": 200,
       "difficulty": 2,
-      "flagSha256": "9a7c6b5d4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8c7d6e5f4a3b2c1d0e9f8a7b",
-      "description": "An FGCU admin shared a Base64-encoded secret used for a backup script. Decode it to get the flag. The canonical flag is `FGCU{crypto_base64_fgcu}`.",
+      "flagSha256": "3d5ea8ecd33dc508756da625b0bb48b372fdcbf8f9d0c843fdf82335a2e476f2",
+      "description": "Our network monitor intercepted this suspicious string. Decode it to reveal the flag: RkdDVXtiYXNlNjRfaXNfbm90X2VuY3J5cHRpb259",
       "hints": [
-        "Base64 decode the string.",
-        "Remember padding `=` characters may be present."
+        "The string contains only alphanumeric characters plus `=` — ring any bells?",
+        "It's Base64. Use any online Base64 decoder, or paste it into a browser console with `atob('...')`"
       ],
       "resources": []
     },
@@ -188,17 +107,17 @@
       "resources": []
     },
     {
-      "id": "014",
-      "title": "FGCU Source Leak",
+      "id": "003",
+      "title": "Source of Truth",
       "category": "web",
       "categoryLabel": "Web Exploitation",
       "points": 200,
       "difficulty": 2,
-      "flagSha256": "d4e5f60718293a4b5c6d7e8f90123456789abcdef0123456789abcdef01234567",
-      "description": "A student accidentally left a secret in a public FGCU repo referenced by the site. Find the leaked string and submit `FGCU{web_source_fgcu}`.",
+      "flagSha256": "66cda2183d45473af22e25f67f1ce091aa0fa5b54c8571db669fc63ef3e0f98d",
+      "description": "A developer left something they shouldn't have in the page source of this challenge. The flag is hidden somewhere in the **HTML, CSS, or JavaScript** of this very page. Developers often leave comments they forget to remove...",
       "hints": [
-        "Search the page for references to external scripts or comments.",
-        "Check linked resources for leftover secrets."
+        "Right-click → View Page Source, or press Ctrl+U (Cmd+Option+U on macOS)",
+        "Use Ctrl+F on the source and search for `FGCU{`"
       ],
       "resources": []
     },
@@ -305,24 +224,20 @@
       ]
     },
     {
-      "id": "021",
-      "title": "FGCU Timeline",
+      "id": "004",
+      "title": "Log Jam",
       "category": "forensics",
       "categoryLabel": "Forensics",
       "points": 300,
       "difficulty": 3,
-      "flagSha256": "4b5c6d7e8f90123456789abcdef0123456789abcdef0123456789abcdef0123",
-      "description": "Reconstruct an FGCU workstation timeline from logs to find the moment a secret was exfiltrated. The flag is `FGCU{forensics_timeline_fgcu}`.",
+      "flagSha256": "255547d7456f81e51b51a9a72833c5ac2e16d49429a0c55405e25bcff8b7fec4",
+      "description": "An attacker compromised our server. We've pulled the auth logs from the past 24 hours (download below). Find the IP address that successfully logged in **after 5+ failed attempts**. The flag is `FGCU{ip_address_here}` with dots replaced by underscores.",
       "hints": [
-        "Correlate timestamps across logs and look for anomalies.",
-        "Sort events and focus on unusual file transfers."
+        "Look for repeated \"Failed password\" entries from the same IP",
+        "Use Ctrl+F to count occurrences, or grep-style thinking: which IP appears in both FAIL and SUCCESS entries?"
       ],
       "resources": [
-        {
-          "label": "Download workstation logs (zip)",
-          "href": "assets/fgcu_workstation_logs.zip",
-          "download": "fgcu_workstation_logs.zip"
-        }
+        { "label": "Download auth.log", "href": "assets/forensics-challenge.txt", "download": "forensics-challenge.txt" }
       ]
     },
     {
@@ -431,24 +346,20 @@
       ]
     },
     {
-      "id": "027",
-      "title": "FGCU Binary Puzzle",
+      "id": "005",
+      "title": "Obfuscated",
       "category": "reverse",
       "categoryLabel": "Reverse Engineering",
       "points": 300,
       "difficulty": 3,
-      "flagSha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcd",
-      "description": "A medium-difficulty FGCU reverse problem: analyze control flow to recover `FGCU{reverse_binary_fgcu}`.",
+      "flagSha256": "a44d8ca787902de2fe01311e19e4dc8e7e2388cec435c54bdb844e9b104a64fd",
+      "description": "One of our interns wrote this 'cleverly hidden' flag checker. Too bad it runs in the browser. Figure out what string makes the function return `true`. Download the file below.",
       "hints": [
-        "Use a disassembler to follow the branching logic.",
-        "Identify the function that validates input and trace it backward."
+        "Open browser DevTools console, paste the file contents, and experiment with the `checkFlag()` function",
+        "The function reverses the input then XORs each char — work backwards from the hardcoded array"
       ],
       "resources": [
-        {
-          "label": "Download binary and symbols",
-          "href": "assets/binary_puzzle.zip",
-          "download": "binary_puzzle.zip"
-        }
+        { "label": "Download reverse-me.js", "href": "assets/reverse-me.js", "download": "reverse-me.js" }
       ]
     },
     {
@@ -638,6 +549,23 @@
           "href": "assets/stego_talonB_bundle.zip",
           "download": "stego_talonB_bundle.zip"
         }
+      ]
+    },
+    {
+      "id": "006",
+      "title": "Breach Report",
+      "category": "osint",
+      "categoryLabel": "OSINT",
+      "points": 500,
+      "difficulty": 5,
+      "flagSha256": "bb4ca8a3ca36f24e59a156fe23cd484e8cc184369588502faf0e0c143729dcfc",
+      "description": "Your task: use the **Have I Been Pwned** public API to find the breach whose `Name` is **Adobe**. Fetch it live and extract the year it happened (the `BreachDate` field, just the 4-digit year). Then count how many data classes were exposed in that breach (length of the `DataClasses` array). The flag is `FGCU{adobe_YEAR_COUNTclasses}` — e.g. if the breach was in 2013 with 7 data classes, the flag would be `FGCU{adobe_2013_7classes}`.",
+      "hints": [
+        "The endpoint is `https://haveibeenpwned.com/api/v3/breaches` — open it in your browser, or use the \"Try it live\" button",
+        "Search the JSON response for the entry where Name is \"Adobe\". Look at BreachDate and DataClasses."
+      ],
+      "resources": [
+        { "label": "HIBP breaches API (opens new tab)", "href": "https://haveibeenpwned.com/api/v3/breaches", "external": true }
       ]
     }
   ]
