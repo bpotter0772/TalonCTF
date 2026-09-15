@@ -1,6 +1,7 @@
 /**
  * Challenge data loader, SHA-256 flag verification (Web Crypto API), and basic markdown rendering.
  * CHALLENGES_EMBEDDED mirrors data/challenges.json for file:// and offline use.
+ * Anonymous_Eagle Dev Note: Make sure all problems have SHA-256 flags to hide correct answers
  */
 
 export const CHALLENGES_EMBEDDED = {
@@ -104,95 +105,87 @@ export const CHALLENGES_EMBEDDED = {
       title: "Source of Truth",
       category: "web",
       categoryLabel: "Web Exploitation",
-      points: 200,
-      difficulty: 2,
-      flagSha256:
-        "66cda2183d45473af22e25f67f1ce091aa0fa5b54c8571db669fc63ef3e0f98d",
-      description:
-        "A developer left something they shouldn't have in the page source of this challenge. The flag is hidden somewhere in the **HTML, CSS, or JavaScript** of this very page. Developers often leave comments they forget to remove...",
-      hints: [
-        "Right-click → View Page Source, or press Ctrl+U (Cmd+Option+U on macOS)",
-        "Use Ctrl+F on the source and search for `FGCU{`",
-      ],
-      resources: [],
-    },
-    {
-      id: "013",
-      title: "FGCU Login Bypass",
-      category: "web",
-      categoryLabel: "Web Exploitation",
       points: 100,
       difficulty: 1,
-      flagSha256: "c3d4e5f60718293a4b5c6d7e8f90123456789abcdef0123456789abcdef012345",
-      description:
-        "A mock FGCU web app has a trivial login bypass in a demo page. Find the bypass and retrieve the flag `FGCU{web_login_fgcu}`.",
+      flagSha256: "66cda2183d45473af22e25f67f1ce091aa0fa5b54c8571db669fc63ef3e0f98d",
+      description: "A developer left something they shouldn't have in the page source of this challenge. The flag is hidden somewhere in the **HTML, CSS, or JavaScript** of this very page. Developers often leave comments they forget to remove...",
       hints: [
-        "Try simple input tampering and common bypass payloads.",
-        "Inspect client-side JavaScript for logic shortcuts."
-      ],
-      resources: []
-    },
-    {
-      id: "015",
-      title: "FGCU XSS Lab",
-      category: "web",
-      categoryLabel: "Web Exploitation",
-      points: 300,
-      difficulty: 3,
-      flagSha256: "e5f60718293a4b5c6d7e8f90123456789abcdef0123456789abcdef012345678",
-      description:
-        "A campus feedback form is vulnerable to stored XSS. Craft a payload that reveals the flag `FGCU{web_xss_fgcu}` in the admin view.",
-      hints: [
-        "Try payloads that persist and execute in admin context.",
-        "Use benign payloads first to confirm persistence."
+        "Right-click → View Page Source, or press Ctrl+U (Cmd+Option+U on macOS)",
+        "Use Ctrl+F on the source and search for `FGCU{`"
       ],
       resources: []
     },
     {
       id: "016",
-      title: "FGCU SQL Injection",
+      title: "Oops, all answers",
+      category: "web",
+      categoryLabel: "Web Exploitation",
+      points: 200,
+      difficulty: 2,
+      flagSha256: "28107dc988a503342a0be0e6844a4165bdcce1af3d59d19aba45d307ec110727",
+      description: "Uh oh. The lazy dev of this platform accidently left a text document with all of the answers to these challenges in it. Look in the source files of this platform and find the text document and enter the hidden flag within it to show him that cutting corners like this can compromise any website.",
+      hints: [
+        "Find the source files on GitHub",
+        "Which file contains all the assets needed for this platform?"
+      ],
+      resources: []
+    },
+    {
+      id: "013",
+      title: "How We Hide Things",
+      category: "web",
+      categoryLabel: "Web Exploitation",
+      points: 300,
+      difficulty: 3,
+      flagSha256: "c7715cbffd45d1f081103bec5dcafd7d2c31a182183b19e18b8ef6a4df2af2cd",
+      description: "One of the devs left a note with an important detail within one of the challenge data files of this very platform. Find the note and enter the handle of the dev.",
+      hints: [
+        "Download the source files off the GitHub Repo",
+        "You're looking for challenges.js"
+      ],
+      resources: []
+    },
+    {
+      id: "015",
+      title: "The Logic of it",
       category: "web",
       categoryLabel: "Web Exploitation",
       points: 400,
       difficulty: 4,
-      flagSha256: "f60718293a4b5c6d7e8f90123456789abcdef0123456789abcdef0123456789a",
-      description:
-        "A legacy FGCU service has a parameter vulnerable to SQL injection. Extract the secret row containing the flag `FGCU{web_sql_fgcu}`.",
+      flagSha256: "6b94825cecf7fda763963eb7d811b51d2d0facd6709affd0ebe283e20b3b68da",
+      description: "Find the asynchronus function in the challenge data file of this platform that is reponsible for tacking these SHA-256 flag strings and encoding them. Simply enter the name of the function with the input format it takes. This shows how vulnerable some sites can be without proper protection.",
       hints: [
-        "Use time-based or boolean-based techniques if blind.",
-        "Enumerate columns and table names carefully."
+        "We will need source files from GitHub",
+        "The bottom of the challenges.js file holds many functions, maybe start there?"
       ],
       resources: []
     },
     {
       id: "017",
-      title: "FGCU Web Challenge A",
+      title: "Lazy Dev Strikes Again",
       category: "web",
       categoryLabel: "Web Exploitation",
       points: 500,
       difficulty: 5,
-      flagSha256: "07a18293a4b5c6d7e8f90123456789abcdef0123456789abcdef0123456789ab",
-      description:
-        "A complex FGCU web challenge combining auth logic and chained vulnerabilities. Recover `FGCU{web_talonA_fgcu}`.",
+      flagSha256: "07f5658c1da5a4ff99ebf008d91df563d2607f5cf4157e507503dc3ed9e50f69",
+      description: "The same dev from challenge 2 returns with another answer hidden deeper in the files of this platform. Find it and enter the 'For Real' answer.",
       hints: [
-        "Map the app flow and identify trust boundaries.",
-        "Chained bugs often require combining two smaller exploits."
+        "Try to find a file called Don_Look_At_Me",
+        "It looks like it's encoded with MD5"
       ],
       resources: []
     },
     {
       id: "018",
-      title: "FGCU Web Challenge B",
+      title: "Ensuring Protection",
       category: "web",
       categoryLabel: "Web Exploitation",
       points: 500,
       difficulty: 5,
-      flagSha256: "18293a4b5c6d7e8f90123456789abcdef0123456789abcdef0123456789abcd",
-      description:
-        "The hardest web problem: a multi-step exploit on a simulated FGCU portal. The flag is `FGCU{web_talonB_fgcu}`.",
+      flagSha256: "85dc8d2ef468228d78e2496730dc1f77e1db6f5a662c23e9e78b2cbc55bab218",
+      description: "This time, WE will be working to prevent Web Exploitation. Take the answer to this problem, 'Web_Protection', and encrypt it with Base 64. Enter the encrypted answer as the answer to this challenge.",
       hints: [
-        "Persistence and privilege escalation inside the app may be required.",
-        "Keep notes and iterate on small successes."
+        "There are many Base64 encoders that can be found on the internet."
       ],
       resources: []
     },
