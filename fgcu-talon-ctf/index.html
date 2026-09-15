@@ -139,6 +139,13 @@
 
         <div class="dashboard-inner">
           <p id="progress-summary" class="progress-summary" role="status"></p>
+          <button id="btn-logout">Sign out</button>
+          <script>
+            document.getElementById('btn-logout').addEventListener('click', () => {
+            // SWA logout endpoint
+            window.location.href = '/.auth/logout?post_logout_redirect_uri=/';
+            });
+          </script>
           <div
             class="filter-chips"
             role="toolbar"

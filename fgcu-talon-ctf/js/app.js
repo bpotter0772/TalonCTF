@@ -40,6 +40,41 @@ const views = {
   scoreboard: document.getElementById("view-scoreboard"),
 };
 
+async function fetchProfile() {
+  try {
+    const res = await fetch('/api/me');
+    if (!res.ok) return null;
+    const data = await res.json();
+    if (data && data.authenticated) return data.user;
+  } catch (e) {
+    // ignore
+  }
+  return null;
+}
+
+async function routeOnLoad() {
+  // If the user landed on a protected route, show it; otherwise show landing
+  const path = window.location.pathname || '/';
+  // Try to fetch profile to know if user is authenticated
+  const user = await fetchProfile();
+  if (path.startsWith('/challenge/') && user) {
+    // show specific challenge if path contains id
+    const parts = path.split('/');
+    const id = parts[2] || null;
+    if (id) {
+      openChallengeView(id);
+      return;
+    }
+  }
+  if (path === '/dashboard' && user) {
+    showView('dashboard');
+    renderDashboard();
+    return;
+  }
+  // default behavior: landing
+  showView('landing');
+}
+
 function showView(name) {
   // If we're leaving the challenge view, pause the running challenge timer
   if (name !== "challenge" && currentChallengeId) {
@@ -676,8 +711,8 @@ async function boot() {
   }
 
   document.getElementById("btn-enter")?.addEventListener("click", () => {
-    showView("dashboard");
-    renderDashboard();
+    // Navigate to protected route; SWA will redirect to GitHub login if needed
+    window.location.href = '/dashboard';
   });
 
   document.getElementById("btn-scoreboard-nav")?.addEventListener("click", () => {
@@ -701,7 +736,9 @@ async function boot() {
 
   wireFilters();
   renderDashboard();
-  showView("landing");
+
+  // Route based on current URL and auth state instead of always showing landing
+  await routeOnLoad();
 }
 
 boot();
