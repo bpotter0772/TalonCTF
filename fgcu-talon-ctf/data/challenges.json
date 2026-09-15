@@ -2,27 +2,12 @@
   "version": 1,
   "challenges": [
     {
-      "id": "007",
-      "title": "Crypto 101",
-      "category": "crypto",
-      "categoryLabel": "Cryptography",
-      "points": 100,
-      "difficulty": 1,
-      "flagSha256": "d2f1b3a6c9e8f0a1b2c3d4e5f60718293a4b5c6d7e8f90123456789abcdef0123",
-      "description": "A freshman in FGCU's intro crypto lab left a simple substitution note. Decode the Caesar-shifted message to reveal the flag. The canonical flag for this challenge is `FGCU{crypto_caesar_fgcu}` — hash and store the SHA-256 for verification.",
-      "hints": [
-        "Try common Caesar shifts (e.g., shift by 3).",
-        "Use an online Caesar cipher tool or write a tiny script."
-      ],
-      "resources": []
-    },
-    {
       "id": "002",
       "title": "Base Case",
       "category": "crypto",
       "categoryLabel": "Cryptography",
-      "points": 200,
-      "difficulty": 2,
+      "points": 100,
+      "difficulty": 1,
       "flagSha256": "3d5ea8ecd33dc508756da625b0bb48b372fdcbf8f9d0c843fdf82335a2e476f2",
       "description": "Our network monitor intercepted this suspicious string. Decode it to reveal the flag: RkdDVXtiYXNlNjRfaXNfbm90X2VuY3J5cHRpb259",
       "hints": [
@@ -32,62 +17,76 @@
       "resources": []
     },
     {
+      "id": "007",
+      "title": "Crypto 101",
+      "category": "crypto",
+      "categoryLabel": "Cryptography",
+      "points": 200,
+      "difficulty": 2,
+      "flagSha256": "b67f018e76b97219db567bd2897a4eed483eb71bfefec2405c8f9b27395ff101",
+      "description": "A freshman in FGCU's Computer Security course is creating a password for their GitHub account. For an extra layer of security, they decided to encrypt it with a Caesar Cipher. Decrypt the cypher and find their 'secure' password: Lejpalk_Lhnsl",
+      "hints": [
+        "Use an online Caesar cipher tool or write a tiny script.",
+        "Try common Caesar shifts (e.g., shift by 7)."
+      ],
+      "resources": []
+    },
+    {
       "id": "009",
-      "title": "Talon Hash",
+      "title": "Mighty Hash",
       "category": "crypto",
       "categoryLabel": "Cryptography",
       "points": 300,
       "difficulty": 3,
-      "flagSha256": "3b9f1e2d4c5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f901234",
-      "description": "FGCU's Talon team stored a short passphrase hashed with MD5. Recover the original passphrase using a small wordlist and produce the flag `FGCU{crypto_md5_fgcu}`.",
+      "flagSha256": "7382e2310e1803f3a32a456a295d238e2f80db1d363032535fa28f8fb087d5b5",
+      "description": "FGCU's Cybersecurity team stored a short passphrase hashed with MD5. Recover the original passphrase and produce the flag: cb07d2eff79a7dc3c4eeaa50b54c8876",
       "hints": [
-        "Try a targeted wordlist with FGCU-themed words.",
         "Use an offline hash-cracking tool or an online MD5 lookup."
       ],
       "resources": []
     },
     {
       "id": "010",
-      "title": "Public Key Mixup",
+      "title": "President Problems",
       "category": "crypto",
       "categoryLabel": "Cryptography",
       "points": 400,
       "difficulty": 4,
-      "flagSha256": "7c6d5e4f3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d7e6f5a4b3c2d1e0f9a8b7c6",
-      "description": "An FGCU dev accidentally published a private key fragment. Reconstruct the missing piece and decrypt the short message to reveal the flag `FGCU{crypto_rsa_fgcu}`. This simulates key management mistakes in campus projects.",
+      "flagSha256": "0e72fc61d8f00f044f458240ea680bd89b7b95194ecdffba947815360329d481",
+      "description": "A hacker got into President Timur's computer and changed her password to something hidden behind a cipher. Find out what the cipher and password is so she can gain access once again: Blf'oo_Mvevi_Hloev_Gsrh_Vztovh",
       "hints": [
-        "Look for small RSA key reconstruction techniques.",
-        "The message is short and uses textbook RSA for the exercise."
+        "It looks like the letters have been jumbled up in some way.",
+        "Maybe an Atbash cipher was used?"
       ],
       "resources": []
     },
     {
       "id": "011",
-      "title": "Talon CTF Crypto Challenge A",
+      "title": "Professor's Challenge",
       "category": "crypto",
       "categoryLabel": "Cryptography",
       "points": 500,
       "difficulty": 5,
-      "flagSha256": "a1b2c3d4e5f60718293a4b5c6d7e8f90123456789abcdef0123456789abcdef01",
-      "description": "A senior-level FGCU crypto problem: combine frequency analysis and a transposition step to recover the flag `FGCU{crypto_talonA_fgcu}`.",
+      "flagSha256": "076658956cfa5c9dc5a0e5dabda11d36249a65546248120f62cd575c309962ac",
+      "description":
+        "Professor Qu wants you to help decode a password for a cybersecurity system he is trying to access: Greax_Binfl",
       "hints": [
-        "Break the cipher into substitution then transposition.",
-        "Frequency analysis on English text will help."
+        "The Cipher Seems to be using a cryptii key.",
+        "Use a Vigenere Cipher for decoding."
       ],
       "resources": []
     },
     {
       "id": "012",
-      "title": "Talon CTF Crypto Challenge B",
+      "title": "Final Crypto Challenge",
       "category": "crypto",
       "categoryLabel": "Cryptography",
       "points": 500,
       "difficulty": 5,
-      "flagSha256": "b2c3d4e5f60718293a4b5c6d7e8f90123456789abcdef0123456789abcdef0123",
-      "description": "The hardest FGCU crypto problem in this set: a multi-stage cipher used in a simulated campus capture scenario. The flag is `FGCU{crypto_talonB_fgcu}`.",
+      "flagSha256": "306cb6ed50c75d6543adb45d842cb59bb43a9f18675361fdf334f8aa8a928d13",
+      "description": "Hackers broke into Canvas and locked down the whole website with a cipher. The professors have entrusted you to decode it and restore Canvas to working order: Dblxcq_Tqehxc",
       "hints": [
-        "Expect multiple layers: encoding, substitution, and a small custom permutation.",
-        "Work incrementally and test partial decodings."
+        "Perhaps a Playfair cipher would work?"
       ],
       "resources": []
     },
