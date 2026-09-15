@@ -431,17 +431,17 @@
       "categoryLabel": "Steganography",
       "points": 100,
       "difficulty": 1,
-      "flagSha256": "456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef012",
-      "description": "A campus image contains a simple hidden message in the least significant bits. Extract `FGCU{stego_lsb_fgcu}`.",
+      "flagSha256": "d0021f8ef14878062351decd14db0bf67a9e8af2c142819da2c097fe22f22cbd",
+      "description":
+        "For each of these Steganography challenges, a group of prankster hackers decided to hide messages in a few images of FGCU that can be found online. Decode the images and find the messages behind them to see if any are malicious.",
       "hints": [
-        "Try LSB extraction tools or scripts.",
-        "Check common image formats (PNG, BMP) for LSB hiding."
+        "Try using a stegonography decoder commonly found throughout the internet."
       ],
       "resources": [
         {
-          "label": "Download stego image (PNG)",
-          "href": "assets/stego_lsb_fgcu.png",
-          "download": "stego_lsb_fgcu.png"
+          "label": "Download Stego Image 1",
+          "href": "assets/Stego1.png",
+          "download": "Stego1.png"
         }
       ]
     },
@@ -452,17 +452,15 @@
       "categoryLabel": "Steganography",
       "points": 200,
       "difficulty": 2,
-      "flagSha256": "56789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123",
-      "description": "An FGCU flyer image hides a message in metadata and color channels. Recover `FGCU{stego_meta_fgcu}`.",
-      "hints": [
-        "Inspect EXIF and other metadata.",
-        "Try extracting color-channel differences."
-      ],
+      "flagSha256": "1a35e1c5122354bbe948388ec048e6a75de1e574c3a6642a62ad140a893b455e",
+      "description":
+        "For each of these Steganography challenges, a group of prankster hackers decided to hide messages in a few images of FGCU that can be found online. Decode the images and find the messages behind them to see if any are malicious.",
+      "hints": [],
       "resources": [
         {
-          "label": "Download flyer image (JPEG)",
-          "href": "assets/stego_meta_fgcu.jpg",
-          "download": "stego_meta_fgcu.jpg"
+          "label": "Download Stego Image 2",
+          "href": "assets/Stego2.png",
+          "download": "Stego2.png"
         }
       ]
     },
@@ -473,17 +471,15 @@
       "categoryLabel": "Steganography",
       "points": 300,
       "difficulty": 3,
-      "flagSha256": "6789abcdef0123456789abcdef0123456789abcdef0123456789abcdef01234",
-      "description": "A multi-layer stego image from an FGCU design contest hides a short string. The flag is `FGCU{stego_layers_fgcu}`.",
-      "hints": [
-        "Try multiple extraction passes and check for encoded payloads.",
-        "Look for appended data after image EOF."
-      ],
+      "flagSha256": "d1987b0ebb0afe869399c5e4cef685f085244f2d0a520aa205c0e96f9a608cf9",
+      "description":
+        "For each of these Steganography challenges, a group of prankster hackers decided to hide messages in a few images of FGCU that can be found online. Decode the images and find the messages behind them to see if any are malicious.",
+      "hints": [],
       "resources": [
         {
-          "label": "Download multi-layer image (PNG)",
-          "href": "assets/stego_layers_fgcu.png",
-          "download": "stego_layers_fgcu.png"
+          "label": "Download Stego Image 3",
+          "href": "assets/Stego3.png",
+          "download": "Stego3.png"
         }
       ]
     },
@@ -494,59 +490,59 @@
       "categoryLabel": "Steganography",
       "points": 400,
       "difficulty": 4,
-      "flagSha256": "789abcdef0123456789abcdef0123456789abcdef0123456789abcdef012345",
-      "description": "A challenging FGCU stego problem: hidden payloads across frames or channels. Recover `FGCU{stego_frames_fgcu}`.",
-      "hints": [
-        "Consider multi-frame or multi-channel hiding techniques.",
-        "Extract and compare frames or channels programmatically."
-      ],
+      "flagSha256": "388fd9615d911d44df4eed5eae5f500d0493abd0c9329996f0b2565ba82386f9",
+      "description":
+        "For each of these Steganography challenges, a group of prankster hackers decided to hide messages in a few images of FGCU that can be found online. Decode the images and find the messages behind them to see if any are malicious.",
+      "hints": [],
       "resources": [
         {
-          "label": "Download multi-frame asset (zip: images + audio)",
-          "href": "assets/stego_frames_bundle.zip",
-          "download": "stego_frames_bundle.zip"
+          "label": "Download Stego Image 4",
+          "href": "assets/Stego4.png",
+          "download": "Stego4.png"
         }
       ]
     },
     {
       "id": "035",
-      "title": "FGCU Stego Challenge A",
+      "title": "FGCU Stego 5",
       "category": "stego",
       "categoryLabel": "Steganography",
       "points": 500,
       "difficulty": 5,
-      "flagSha256": "89abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456",
-      "description": "A hard FGCU stego challenge combining image and audio steganography. The flag is `FGCU{stego_talonA_fgcu}`.",
+      "flagSha256": "772ea7aa6dfbc36f37ce183e90721793306848c01ecae95a729c5b3806170894",
+      "description":
+        "For each of these Steganography challenges, a group of prankster hackers decided to hide messages in a few images of FGCU that can be found online. Decode the images and find the messages behind them to see if any are malicious.",
       "hints": [
-        "Try extracting hidden data from both image and audio tracks.",
-        "Look for encoded payloads that require decoding after extraction."
+        "Looks like we'll have to decode the message first.",
+        "What cipher involves shifting letters back in the alphabet?"
       ],
       "resources": [
         {
-          "label": "Download stego image + audio bundle",
-          "href": "assets/stego_talonA_bundle.zip",
-          "download": "stego_talonA_bundle.zip"
+          "label": "Download Stego Image 5",
+          "href": "assets/Stego5.png",
+          "download": "Stego5.png"
         }
       ]
     },
     {
       "id": "036",
-      "title": "FGCU Stego Challenge B",
+      "title": "FGCU Stego 6",
       "category": "stego",
       "categoryLabel": "Steganography",
       "points": 500,
       "difficulty": 5,
-      "flagSha256": "9abcdef0123456789abcdef0123456789abcdef0123456789abcdef01234567",
-      "description": "The hardest stego problem: a multi-format FGCU artifact with layered hiding. The flag is `FGCU{stego_talonB_fgcu}`.",
+      "flagSha256": "0d77c4e678acd16c8a8162c45af45ee5e86c22b28dcb4fbf284b38e51f2e7837",
+      "description":
+        "For each of these Steganography challenges, a group of prankster hackers decided to hide messages in a few images of FGCU that can be found online. Decode the images and find the messages behind them to see if any are malicious.",
       "hints": [
-        "Expect multiple encodings and cross-format hiding.",
-        "Document each extraction step carefully."
+        "Once again, the message is encoded",
+        "Use a Playfair Cipher decoder."
       ],
       "resources": [
         {
-          "label": "Download stego talon B bundle",
-          "href": "assets/stego_talonB_bundle.zip",
-          "download": "stego_talonB_bundle.zip"
+          "label": "Download Stego Image 6",
+          "href": "assets/Stego6.png",
+          "download": "Stego6.png"
         }
       ]
     },
