@@ -1,26 +1,16 @@
 {
-  "navigationFallback": {
-    "rewrite": "/index.html",
-    "exclude": ["/assets/*", "/api/*"]
-  },
   "routes": [
     {
       "route": "/dashboard",
       "allowedRoles": ["authenticated"]
     },
     {
-      "route": "/challenge/*",
-      "allowedRoles": ["authenticated"]
-    },
-    {
       "route": "/api/*",
-      "allowedRoles": ["anonymous"]
+      "allowedRoles": ["authenticated"]
     }
   ],
-  "responseOverrides": {
-    "401": {
-      "statusCode": 302,
-      "redirect": "/.auth/login/github"
-    }
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/api/*"]
   }
 }
