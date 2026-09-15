@@ -30,6 +30,9 @@ let scoreboardTimer = null;
 /** @type {(() => void) | null} */
 let matrixCleanup = null;
 
+/** Interval id used to update the visible challenge timer while viewing a challenge */
+let challengeTimerInterval = null;
+
 const views = {
   landing: document.getElementById("view-landing"),
   dashboard: document.getElementById("view-dashboard"),
@@ -38,6 +41,11 @@ const views = {
 };
 
 function showView(name) {
+  // If we're leaving the challenge view, pause the running challenge timer
+  if (name !== "challenge" && currentChallengeId) {
+    pauseChallengeTimer(currentChallengeId);
+  }
+
   Object.entries(views).forEach(([k, el]) => {
     if (!el) return;
     const on = k === name;
@@ -196,6 +204,34 @@ function openChallengeView(id) {
   }
   if (bodyEl) bodyEl.innerHTML = renderMarkdownBasic(c.description);
 
+  const timerContainer = document.getElementById("challenge-timer-container");
+  const timerId = `challenge-timer-${c.id}`;
+  let timerEl = timerContainer ? document.getElementById(timerId) : null;
+
+  if (!timerContainer) {
+    // Fallback: try inserting after bodyEl if container missing
+    // eslint-disable-next-line no-console
+    console.warn("challenge-timer-container not found; falling back to bodyEl insertion");
+    timerEl = document.getElementById(timerId);
+    if (!timerEl && bodyEl && bodyEl.parentNode) {
+      timerEl = document.createElement("p");
+      timerEl.id = timerId;
+      timerEl.className = "challenge-timer flag-feedback";
+      bodyEl.parentNode.insertBefore(timerEl, bodyEl.nextSibling);
+    }
+  } else {
+    if (!timerEl) {
+      timerEl = document.createElement("p");
+      timerEl.id = timerId;
+      timerEl.className = "challenge-timer flag-feedback";
+      timerContainer.innerHTML = ""; // ensure single child
+      timerContainer.appendChild(timerEl);
+    }
+  }
+
+  // Initialize timer text immediately for this challenge
+  updateTimerDisplayForChallenge(c.id);
+
   if (resourcesEl) {
     resourcesEl.innerHTML = "";
     if (c.resources && c.resources.length) {
@@ -293,7 +329,158 @@ function openChallengeView(id) {
   }
 
   showView("challenge");
+
+  // Start or resume the timer for this challenge
+  startChallengeTimer(c.id);
 }
+
+/* ---------------------------
+   Timer helpers and storage
+   --------------------------- */
+
+/**
+ * Progress entry shape is extended with:
+ *  - timeSpentMs: number (accumulated milliseconds)
+ *  - timerLastStart: number | null (timestamp ms when timer was last started)
+ *
+ * These fields are persisted via existing getProgress/saveProgress helpers.
+ */
+
+/** Format milliseconds to mm:ss */
+function formatMsToMMSS(ms) {
+  const totalSeconds = Math.floor(ms / 1000);
+  const minutes = Math.floor(totalSeconds / 60)
+    .toString()
+    .padStart(2, "0");
+  const seconds = (totalSeconds % 60).toString().padStart(2, "0");
+  return `${minutes}:${seconds}`;
+}
+
+/** Ensure a progress entry exists for a challenge and return it (mutates storage) */
+function ensureProgressEntry(challengeId) {
+  const progress = { ...getProgress() };
+  const cur = progress[challengeId] || {
+    solved: false,
+    hintsUsed: 0,
+    wrongAttempts: 0,
+    timeSpentMs: 0,
+    timerLastStart: null,
+  };
+  // Ensure fields exist
+  if (typeof cur.timeSpentMs !== "number") cur.timeSpentMs = 0;
+  if (!("timerLastStart" in cur)) cur.timerLastStart = null;
+  progress[challengeId] = cur;
+  saveProgress(progress);
+  return progress[challengeId];
+}
+
+/** Start or resume the timer for a challenge */
+function startChallengeTimer(challengeId) {
+  // Pause any existing interval to avoid duplicates
+  if (challengeTimerInterval) {
+    clearInterval(challengeTimerInterval);
+    challengeTimerInterval = null;
+  }
+
+  const progress = { ...getProgress() };
+  const cur = progress[challengeId] || {
+    solved: false,
+    hintsUsed: 0,
+    wrongAttempts: 0,
+    timeSpentMs: 0,
+    timerLastStart: null,
+  };
+
+  // If the challenge is already solved, do not start or resume the timer.
+  if (cur.solved) {
+    // Ensure timerLastStart is null and display final time
+    if (cur.timerLastStart) {
+      // finalize any running time just in case
+      const elapsed = Date.now() - cur.timerLastStart;
+      cur.timeSpentMs = (cur.timeSpentMs || 0) + elapsed;
+      cur.timerLastStart = null;
+      progress[challengeId] = cur;
+      saveProgress(progress);
+    }
+    updateTimerDisplayForChallenge(challengeId);
+    return;
+  }
+
+  // If timer is not already running, set last start timestamp
+  if (!cur.timerLastStart) {
+    cur.timerLastStart = Date.now();
+    progress[challengeId] = cur;
+    saveProgress(progress);
+  }
+
+  // Update display immediately and then every second
+  updateTimerDisplayForChallenge(challengeId);
+  challengeTimerInterval = setInterval(() => {
+    updateTimerDisplayForChallenge(challengeId);
+  }, 1000);
+}
+
+/** Pause the timer for a challenge and persist accumulated time */
+function pauseChallengeTimer(challengeId) {
+  if (!challengeId) return;
+  // Clear visual interval
+  if (challengeTimerInterval) {
+    clearInterval(challengeTimerInterval);
+    challengeTimerInterval = null;
+  }
+
+  const progress = { ...getProgress() };
+  const cur = progress[challengeId];
+  if (!cur) return;
+
+  if (cur.timerLastStart) {
+    const elapsed = Date.now() - cur.timerLastStart;
+    cur.timeSpentMs = (cur.timeSpentMs || 0) + elapsed;
+    cur.timerLastStart = null;
+    progress[challengeId] = cur;
+    saveProgress(progress);
+  }
+
+  // Update display one last time to show paused time
+  updateTimerDisplayForChallenge(challengeId);
+}
+
+/** Get total accumulated time (ms) for a challenge, including running interval if active */
+function getTotalTimeMsForChallenge(challengeId) {
+  const progress = getProgress();
+  const cur = progress[challengeId];
+  if (!cur) return 0;
+  let total = cur.timeSpentMs || 0;
+  // If the challenge is solved, do not include any running timer (timerLastStart should be null)
+  if (cur.solved) {
+    return total;
+  }
+  if (cur.timerLastStart) {
+    total += Date.now() - cur.timerLastStart;
+  }
+  return total;
+}
+
+function getTimerElementForChallenge(challengeId) {
+  return document.getElementById(`challenge-timer-${challengeId}`);
+}
+
+/** Update the visible timer element for a specific challenge */
+function updateTimerDisplayForChallenge(challengeId) {
+  const timerEl = document.getElementById(`challenge-timer-${challengeId}`);
+  if (!timerEl) {
+    // eslint-disable-next-line no-console
+    console.warn(`Timer element not found for challenge ${challengeId}`);
+    return;
+  }
+  const totalMs = getTotalTimeMsForChallenge(challengeId);
+  const mmss = formatMsToMMSS(totalMs);
+  timerEl.textContent = `Time spent solving challenge: ${mmss}`;
+}
+
+/* ---------------------------
+   End timer helpers
+   --------------------------- */
 
 function formatInlineHints(text) {
   let t = escapeHtml(text);
@@ -309,6 +496,8 @@ function revealHint(challengeId, hintIndex) {
     solved: false,
     hintsUsed: 0,
     wrongAttempts: 0,
+    timeSpentMs: 0,
+    timerLastStart: null,
   };
   if (cur.hintsUsed <= hintIndex) {
     cur.hintsUsed = hintIndex + 1;
@@ -331,11 +520,15 @@ async function submitFlag() {
     solved: false,
     hintsUsed: 0,
     wrongAttempts: 0,
+    timeSpentMs: 0,
+    timerLastStart: null,
   };
 
   if (cur.solved) {
     feedbackEl.textContent = "Already solved.";
     feedbackEl.className = "flag-feedback flag-feedback--info";
+    // Ensure timer display shows final time
+    updateTimerDisplayForChallenge(c.id);
     return;
   }
 
@@ -356,10 +549,25 @@ async function submitFlag() {
 
   const ok = await verifyFlag(trimmed, c.flagSha256);
   if (ok) {
+    // Finalize and persist timer before marking solved
+    // This ensures the final time is saved and the timer will not resume
+    if (cur.timerLastStart) {
+      const elapsed = Date.now() - cur.timerLastStart;
+      cur.timeSpentMs = (cur.timeSpentMs || 0) + elapsed;
+      cur.timerLastStart = null;
+    }
     cur.solved = true;
     cur.lastSolvedAt = Date.now();
     progress[c.id] = cur;
     saveProgress(progress);
+
+    // Stop any visible interval and update display to final time
+    if (challengeTimerInterval) {
+      clearInterval(challengeTimerInterval);
+      challengeTimerInterval = null;
+    }
+    updateTimerDisplayForChallenge(c.id);
+
     flagInput.classList.add("input-success");
     feedbackEl.textContent = "";
     feedbackEl.className = "flag-feedback";
