@@ -145,6 +145,9 @@ function renderDashboard() {
     if (st === "progress") statusLabel = "In progress";
     if (st === "solved") statusLabel = "Solved ✓";
 
+    const progressForCard = getProgress()[c.id] || {};
+    const displayPoints = typeof progressForCard.currentPoints === "number" ? progressForCard.currentPoints : c.points;
+
     card.innerHTML = `
       <div class="challenge-card__head">
         <span class="cat-pill cat-pill--${c.category}">${escapeHtml(c.categoryLabel)}</span>
@@ -152,7 +155,7 @@ function renderDashboard() {
       </div>
       <h3 class="challenge-card__title">${escapeHtml(c.title)}</h3>
       <div class="challenge-card__meta">
-        <span class="points">${c.points} pts</span>
+        <span class="points">${displayPoints} pts</span>
         <span class="diff-dots" title="Difficulty ${c.difficulty} of 5">${dots}</span>
       </div>
       <p class="challenge-card__status">
@@ -188,6 +191,14 @@ function openChallengeView(id) {
   const c = getChallengeById(id);
   if (!c) return;
 
+  const pr = ensureProgressEntry(c.id);
+  if (pr.currentPoints === null || typeof pr.currentPoints !== "number") {
+    // initialize to the challenge's base points
+    const progress = { ...getProgress() };
+    progress[c.id] = { ...progress[c.id], currentPoints: c.points };
+    saveProgress(progress);
+  }
+
   const titleEl = document.getElementById("challenge-title");
   const metaEl = document.getElementById("challenge-meta");
   const bodyEl = document.getElementById("challenge-body");
@@ -199,8 +210,14 @@ function openChallengeView(id) {
 
   if (titleEl) titleEl.textContent = c.title;
   if (metaEl) {
-    const dots = "●".repeat(c.difficulty) + "○".repeat(5 - c.difficulty);
-    metaEl.innerHTML = `${escapeHtml(c.categoryLabel)} · ${c.points} pts · <span class="diff-inline" title="Difficulty">${escapeHtml(dots)}</span>`;
+  const dots = "●".repeat(c.difficulty) + "○".repeat(5 - c.difficulty);
+
+  // Read persisted progress for this challenge and prefer currentPoints if present
+  const progress = getProgress();
+  const cur = progress[c.id] || {};
+  const displayPoints = (typeof cur.currentPoints === "number") ? cur.currentPoints : c.points;
+
+  metaEl.innerHTML = `${escapeHtml(c.categoryLabel)} · ${displayPoints} pts · <span class="diff-inline" title="Difficulty">${escapeHtml(dots)}</span>`;
   }
   if (bodyEl) bodyEl.innerHTML = renderMarkdownBasic(c.description);
 
@@ -231,6 +248,32 @@ function openChallengeView(id) {
 
   // Initialize timer text immediately for this challenge
   updateTimerDisplayForChallenge(c.id);
+
+  const attemptsContainer = document.getElementById("challenge-attempts-container");
+  const attemptsId = `challenge-attempts-${c.id}`;
+  let attemptsEl = attemptsContainer ? document.getElementById(attemptsId) : null;
+
+  if (!attemptsContainer) {
+    // fallback: try inserting after bodyEl if container missing
+    attemptsEl = document.getElementById(attemptsId);
+    if (!attemptsEl && bodyEl && bodyEl.parentNode) {
+      attemptsEl = document.createElement("p");
+      attemptsEl.id = attemptsId;
+      attemptsEl.className = "challenge-attempts";
+      bodyEl.parentNode.insertBefore(attemptsEl, bodyEl.nextSibling);
+    }
+  } else {
+    if (!attemptsEl) {
+      attemptsEl = document.createElement("p");
+      attemptsEl.id = attemptsId;
+      attemptsEl.className = "challenge-attempts";
+      attemptsContainer.innerHTML = ""; // ensure single child
+      attemptsContainer.appendChild(attemptsEl);
+    }
+  }
+
+  // Initialize attempts text immediately for this challenge
+  updateAttemptsDisplayForChallenge(c.id);
 
   if (resourcesEl) {
     resourcesEl.innerHTML = "";
@@ -299,8 +342,8 @@ function openChallengeView(id) {
   }
 
   if (osintPanel) {
-    osintPanel.hidden = c.id !== "006";
-    if (c.id === "006") {
+    osintPanel.hidden = c.id !== "031";
+    if (c.id === "031") {
       osintPanel.innerHTML = `
         <div class="osint-box">
           <button type="button" class="btn btn-secondary" id="btn-hibp-live">Try it live (fetch breaches JSON)</button>
@@ -356,7 +399,6 @@ function formatMsToMMSS(ms) {
   return `${minutes}:${seconds}`;
 }
 
-/** Ensure a progress entry exists for a challenge and return it (mutates storage) */
 function ensureProgressEntry(challengeId) {
   const progress = { ...getProgress() };
   const cur = progress[challengeId] || {
@@ -365,10 +407,14 @@ function ensureProgressEntry(challengeId) {
     wrongAttempts: 0,
     timeSpentMs: 0,
     timerLastStart: null,
+    attempts: 0,
+    currentPoints: null // will be initialized to challenge.points when we open the challenge
   };
   // Ensure fields exist
   if (typeof cur.timeSpentMs !== "number") cur.timeSpentMs = 0;
   if (!("timerLastStart" in cur)) cur.timerLastStart = null;
+  if (typeof cur.attempts !== "number") cur.attempts = 0;
+  if (!("currentPoints" in cur)) cur.currentPoints = null;
   progress[challengeId] = cur;
   saveProgress(progress);
   return progress[challengeId];
@@ -478,6 +524,19 @@ function updateTimerDisplayForChallenge(challengeId) {
   timerEl.textContent = `Time spent solving challenge: ${mmss}`;
 }
 
+function updateAttemptsDisplayForChallenge(challengeId) {
+  const attemptsEl = document.getElementById(`challenge-attempts-${challengeId}`);
+  if (!attemptsEl) {
+    // eslint-disable-next-line no-console
+    console.warn(`Attempts element not found for challenge ${challengeId}`);
+    return;
+  }
+  const progress = getProgress();
+  const cur = progress[challengeId] || { attempts: 0 };
+  const attempts = cur.attempts || 0;
+  attemptsEl.textContent = `Number of attempts made: ${attempts}`;
+}
+
 /* ---------------------------
    End timer helpers
    --------------------------- */
@@ -522,25 +581,41 @@ async function submitFlag() {
     wrongAttempts: 0,
     timeSpentMs: 0,
     timerLastStart: null,
+    attempts: 0,
+    currentPoints: c.points
   };
 
+  // If already solved, show message and ensure timer/attempts display reflect final state
   if (cur.solved) {
     feedbackEl.textContent = "Already solved.";
     feedbackEl.className = "flag-feedback flag-feedback--info";
-    // Ensure timer display shows final time
     updateTimerDisplayForChallenge(c.id);
+    updateAttemptsDisplayForChallenge(c.id);
     return;
   }
+
+  // Count this submission as an attempt (every time they press Submit)
+  cur.attempts = (cur.attempts || 0) + 1;
+
+  // Persist attempt increment immediately so UI updates even if validation fails
+  progress[c.id] = cur;
+  saveProgress(progress);
+  updateAttemptsDisplayForChallenge(c.id);
 
   const flagPattern = /^FGCU\{[^}]+\}$/;
   const trimmed = raw.trim();
   if (!flagPattern.test(trimmed)) {
+    // Invalid format counts as an attempt but not a correct flag
     flagInput.classList.add("input-shake");
     setTimeout(() => flagInput.classList.remove("input-shake"), 500);
     feedbackEl.textContent =
       "Invalid format — flags must look like FGCU{...}";
     feedbackEl.className = "flag-feedback flag-feedback--bad";
+
+    // Penalize points for incorrect submission
     cur.wrongAttempts = (cur.wrongAttempts || 0) + 1;
+    cur.currentPoints = Math.max(0, (typeof cur.currentPoints === "number" ? cur.currentPoints : c.points) - 10);
+
     progress[c.id] = cur;
     saveProgress(progress);
     renderDashboard();
@@ -550,7 +625,6 @@ async function submitFlag() {
   const ok = await verifyFlag(trimmed, c.flagSha256);
   if (ok) {
     // Finalize and persist timer before marking solved
-    // This ensures the final time is saved and the timer will not resume
     if (cur.timerLastStart) {
       const elapsed = Date.now() - cur.timerLastStart;
       cur.timeSpentMs = (cur.timeSpentMs || 0) + elapsed;
@@ -558,6 +632,8 @@ async function submitFlag() {
     }
     cur.solved = true;
     cur.lastSolvedAt = Date.now();
+    // Ensure currentPoints is at least 0 and persisted
+    if (typeof cur.currentPoints !== "number") cur.currentPoints = c.points;
     progress[c.id] = cur;
     saveProgress(progress);
 
@@ -567,6 +643,7 @@ async function submitFlag() {
       challengeTimerInterval = null;
     }
     updateTimerDisplayForChallenge(c.id);
+    updateAttemptsDisplayForChallenge(c.id);
 
     flagInput.classList.add("input-success");
     feedbackEl.textContent = "";
@@ -574,13 +651,18 @@ async function submitFlag() {
     showSuccessOverlay(c);
     renderDashboard();
   } else {
+    // Wrong flag (valid format but incorrect)
     flagInput.classList.add("input-shake");
     setTimeout(() => flagInput.classList.remove("input-shake"), 500);
     feedbackEl.textContent = "Invalid flag — try again";
     feedbackEl.className = "flag-feedback flag-feedback--bad";
+
     cur.wrongAttempts = (cur.wrongAttempts || 0) + 1;
+    cur.currentPoints = Math.max(0, (typeof cur.currentPoints === "number" ? cur.currentPoints : c.points) - 10);
+
     progress[c.id] = cur;
     saveProgress(progress);
+    updateAttemptsDisplayForChallenge(c.id);
     renderDashboard();
   }
 }

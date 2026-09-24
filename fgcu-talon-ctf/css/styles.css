@@ -49,6 +49,14 @@ body.body--landing {
   display: block;
 }
 
+.challenge-attempts {
+  margin-top: 0.5rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.95rem;
+  color: var(--text);
+  display: block;
+}
+
 .skip-link {
   position: absolute;
   left: -9999px;
