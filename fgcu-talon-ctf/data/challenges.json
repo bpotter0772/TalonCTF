@@ -287,43 +287,43 @@
     },
     {
       "id": "019",
-      "title": "FGCU Crackme 1",
+      "title": "Obfuscation Means Security?",
       "category": "reverse",
       "categoryLabel": "Reverse Engineering",
       "points": 100,
       "difficulty": 1,
-      "flagSha256": "8f90123456789abcdef0123456789abcdef0123456789abcdef0123456789ab",
-      "description": "A tiny FGCU binary prints a prompt and expects a short key. Reverse it to get `FGCU{reverse_crackme1_fgcu}`.",
+      "flagSha256": "e906ee0d68889a7893f1c507577818afb63ed7d1eebe4016395ec1205191e83f",
+      "description": "An FGCU TA stored a secret in the following code to hide the password to their office computer. They figure as long as it's obfuscated, it's secure, right? Prove them wrong by figuring out the correct password for this program.",
       "hints": [
-        "Run it under a debugger and inspect the comparison routine.",
-        "Strings in the binary may hint at the expected input."
+        "Can you isolate the part that looks like it might have the password?",
+        "CyberChef is your friend!"
       ],
       "resources": [
         {
-          "label": "Download crackme binary (zip)",
-          "href": "assets/crackme1.zip",
-          "download": "crackme1.zip"
+          "label": "Download python file",
+          "href": "assets/reverse1.py",
+          "download": "reverse1.py"
         }
       ]
     },
     {
       "id": "020",
-      "title": "FGCU JS Obfuscation",
+      "title": "Strings",
       "category": "reverse",
       "categoryLabel": "Reverse Engineering",
       "points": 200,
       "difficulty": 2,
-      "flagSha256": "90123456789abcdef0123456789abcdef0123456789abcdef0123456789abcd",
-      "description": "An FGCU web tool uses obfuscated JavaScript to check a key. Deobfuscate and find the flag `FGCU{reverse_js_fgcu}`.",
+      "flagSha256": "eb7e35f117db899380f82c3528f2e09074ef3bd99310f280c0171e63313193cf",
+      "description": "FGCU's president has asked you to determine if their new software for the FGCU website is secure. You've already found that there is hardcoded credentials in the software! Could you find the passcode for the given file?",
       "hints": [
-        "Pretty-print and rename variables to understand flow.",
-        "Look for arrays of numbers or XOR operations."
+        "Isn't there a Linux command you can use to view the printable content in a binary file?",
+        "Try using the strings command."
       ],
       "resources": [
         {
-          "label": "Download obfuscated JS",
-          "href": "assets/obfuscated_tool.js",
-          "download": "obfuscated_tool.js"
+          "label": "Download software file",
+          "href": "assets/strings",
+          "download": "strings"
         }
       ]
     },
@@ -346,64 +346,60 @@
     },
     {
       "id": "022",
-      "title": "FGCU Obfuscation Lab",
+      "title": "Reverse Engineering Club",
       "category": "reverse",
       "categoryLabel": "Reverse Engineering",
       "points": 400,
       "difficulty": 4,
-      "flagSha256": "123456789abcdef0123456789abcdef0123456789abcdef0123456789abcde",
-      "description": "A heavily obfuscated FGCU binary hides the flag behind arithmetic and control-flow flattening. Recover `FGCU{reverse_obf_fgcu}`.",
+      "flagSha256": "04ce2760fec9e985d03fede5d5962408ced52bad332fc9e332afbcb26d13cc59",
+      "description": "Congratulations. You are the successful founder of a new FGCU Reverse Engineering Club. As the first challenge for you and your club members, you have all been challenged to find what value the following function returns. Express your answer as a base-10 decimal number.",
       "hints": [
-        "Simplify arithmetic expressions and identify invariants.",
-        "Rename functions and variables as you understand them."
+        "What does the C calling convention tell you about the return value of a function?",
+        "Is is just me, or does part of this form a loop?"
       ],
       "resources": [
         {
-          "label": "Download obfuscated binary bundle",
-          "href": "assets/obf_lab_bundle.zip",
-          "download": "obf_lab_bundle.zip"
+          "label": "Download function",
+          "href": "assets/reverse-function.txt",
+          "download": "reverse-function.txt"
         }
       ]
     },
     {
       "id": "023",
-      "title": "FGCU Reverse Challenge A",
+      "title": "Wildlife Programming",
       "category": "reverse",
       "categoryLabel": "Reverse Engineering",
       "points": 500,
       "difficulty": 5,
-      "flagSha256": "23456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0",
-      "description": "A senior-level FGCU reverse engineering challenge. The flag is `FGCU{reverse_talonA_fgcu}`.",
-      "hints": [
-        "Expect anti-analysis tricks and custom encodings.",
-        "Work incrementally and validate assumptions frequently."
-      ],
+      "flagSha256": "fe8ff8665b2c9bf37c30ae9e94fd2ff264a94d7398350190266b893a3b2f5913",
+      "description": "Did you know that snakes can be programmers too? I found something written by one. Looks like it's checking if the flag you give it is correct or not. Can you reverse engineer the function to find the correct flag?",
+      "hints": [],
       "resources": [
         {
-          "label": "Reverse challenge A bundle",
-          "href": "assets/reverse_talonA_bundle.zip",
-          "download": "reverse_talonA_bundle.zip"
+          "label": "Snake code",
+          "href": "assets/snake-code.txt",
+          "download": "snake-code.txt"
         }
       ]
     },
     {
       "id": "024",
-      "title": "FGCU Reverse Challenge B",
+      "title": "How an Eagle Does It",
       "category": "reverse",
       "categoryLabel": "Reverse Engineering",
       "points": 500,
       "difficulty": 5,
-      "flagSha256": "3456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef01",
-      "description": "The hardest reverse problem in this set: a multi-stage binary from an FGCU capstone exercise. The flag is `FGCU{reverse_talonB_fgcu}`.",
+      "flagSha256": "86654eb5ae8853d68673494ebc402cd560aed15fdd5f2e9c550e041839860b35",
+      "description": "Following up the 'Wildlife Programming' challenge, an FGCU student has decided to follow in the snake's footsteps and make their own function. Can you find the correct flag for this function as well?",
       "hints": [
-        "Combine static and dynamic analysis.",
-        "Record each step and test partial decodings."
+        "Same strategy as 'Wildlife Programming' challenge."
       ],
       "resources": [
         {
-          "label": "Reverse challenge B bundle",
-          "href": "assets/reverse_talonB_bundle.zip",
-          "download": "reverse_talonB_bundle.zip"
+          "label": "Eagle code",
+          "href": "assets/eagle-code.txt",
+          "download": "eagle-code.txt"
         }
       ]
     },
