@@ -8,7 +8,7 @@ export const CHALLENGES_EMBEDDED = {
   version: 1,
   challenges: [
     {
-      id: "002",
+      id: "001",
       title: "Base Case",
       category: "crypto",
       categoryLabel: "Cryptography",
@@ -25,7 +25,7 @@ export const CHALLENGES_EMBEDDED = {
       resources: [],
     },
     {
-      id: "007",
+      id: "002",
       title: "Crypto 101",
       category: "crypto",
       categoryLabel: "Cryptography",
@@ -41,7 +41,7 @@ export const CHALLENGES_EMBEDDED = {
       resources: []
     },
     {
-      id: "009",
+      id: "003",
       title: "Mighty Hash",
       category: "crypto",
       categoryLabel: "Cryptography",
@@ -55,7 +55,7 @@ export const CHALLENGES_EMBEDDED = {
       resources: []
     },
     {
-      id: "010",
+      id: "004",
       title: "President Problems",
       category: "crypto",
       categoryLabel: "Cryptography",
@@ -70,7 +70,7 @@ export const CHALLENGES_EMBEDDED = {
       "resources": []
     },
     {
-      id: "011",
+      id: "005",
       title: "Professor's Challenge",
       category: "crypto",
       categoryLabel: "Cryptography",
@@ -86,7 +86,7 @@ export const CHALLENGES_EMBEDDED = {
       resources: []
     },
     {
-      id: "012",
+      id: "006",
       title: "Final Crypto Challenge",
       category: "crypto",
       categoryLabel: "Cryptography",
@@ -101,7 +101,7 @@ export const CHALLENGES_EMBEDDED = {
       resources: []
     },
     {
-      id: "003",
+      id: "007",
       title: "Source of Truth",
       category: "web",
       categoryLabel: "Web Exploitation",
@@ -116,7 +116,7 @@ export const CHALLENGES_EMBEDDED = {
       resources: []
     },
     {
-      id: "016",
+      id: "008",
       title: "Oops, all answers",
       category: "web",
       categoryLabel: "Web Exploitation",
@@ -131,7 +131,7 @@ export const CHALLENGES_EMBEDDED = {
       resources: []
     },
     {
-      id: "013",
+      id: "009",
       title: "How We Hide Things",
       category: "web",
       categoryLabel: "Web Exploitation",
@@ -146,7 +146,7 @@ export const CHALLENGES_EMBEDDED = {
       resources: []
     },
     {
-      id: "015",
+      id: "010",
       title: "The Logic of it",
       category: "web",
       categoryLabel: "Web Exploitation",
@@ -161,7 +161,7 @@ export const CHALLENGES_EMBEDDED = {
       resources: []
     },
     {
-      id: "017",
+      id: "011",
       title: "Lazy Dev Strikes Again",
       category: "web",
       categoryLabel: "Web Exploitation",
@@ -176,7 +176,7 @@ export const CHALLENGES_EMBEDDED = {
       resources: []
     },
     {
-      id: "018",
+      id: "012",
       title: "Ensuring Protection",
       category: "web",
       categoryLabel: "Web Exploitation",
@@ -190,51 +190,44 @@ export const CHALLENGES_EMBEDDED = {
       resources: []
     },
     {
-      id: "019",
-      title: "FGCU Packet Peek",
+      id: "013",
+      title: "Exam Question",
       category: "forensics",
       categoryLabel: "Forensics",
       points: 100,
       difficulty: 1,
-      flagSha256: "293a4b5c6d7e8f90123456789abcdef0123456789abcdef0123456789abcde",
+      flagSha256: "ff115e7e0cf633392ee82480b99fc424e0d3001fd29fb3538c8e9aa4a6bfc28d",
       description:
-        "A small pcap from an FGCU lab contains a cleartext HTTP request with the flag. Inspect the capture and submit `FGCU{forensics_pcap_fgcu}`.",
+        "While taking an exam in one of your cybersecurity concentration classes, you are faced with this question: Sometimes in forensics, we run into files with odd or unknown extensions. In these cases, looking at some of the file format signatures is helpful to figure out what they are. We use something called 'magic bytes', which are the first few bytes of a file. What is the ASCII representation of the magic bytes for a DOS executable?",
       hints: [
-        "Open the pcap in Wireshark and filter HTTP traffic.",
-        "Look for GET/POST payloads containing readable strings."
+        "Any search engine of choice is a great place to search for magic bytes of files!",
+        "Did you use the ASCII signature? Or the hex? (Use ASCII!)"
       ],
-      resources: [
-        {
-          label: "Download FGCU Packet Peek (pcap)",
-          href: "assets/fgcu_packet_peek.pcap",
-          download: "fgcu_packet_peek.pcap"
-        }
-      ]
+      resources: []
     },
     {
-      id: "020",
-      title: "FGCU Disk Carve",
+      id: "014",
+      title: "Unknown File",
       category: "forensics",
       categoryLabel: "Forensics",
       points: 200,
       difficulty: 2,
-      flagSha256: "3a4b5c6d7e8f90123456789abcdef0123456789abcdef0123456789abcdef0",
+      flagSha256: "da5af039a72a71ecf3056e9afbde1de5f481c7d8382b2e7927eea52aa97ed152",
       description:
-        "A student image from an FGCU VM has a deleted file. Carve the disk image to recover `FGCU{forensics_carve_fgcu}`.",
+        "FGCU's Engineering department found this file deep in their network, but there was no file extension so they're not sure what it is. Can you figure out what kind of file it is?",
       hints: [
-        "Use file carving tools and search for common file headers.",
-        "Look for ASCII strings in carved fragments."
+        "Try using a hex editor to figure out the magic bytes https://hexed.it"
       ],
       resources: [
         {
-          label: "Download FGCU Disk Image (raw)",
-          href: "assets/fgcu_disk_image.img",
-          download: "fgcu_disk_image.img"
+          label: "Download magicinme unknown file",
+          href: "assets/magicinme",
+          download: "magicinme"
         }
       ]
     },
     {
-      id: "004",
+      id: "015",
       title: "Log Jam",
       category: "forensics",
       categoryLabel: "Forensics",
@@ -257,73 +250,52 @@ export const CHALLENGES_EMBEDDED = {
       ],
     },
     {
-      id: "022",
-      title: "FGCU Memory Hunt",
+      id: "016",
+      title: "Attempted Breach",
       category: "forensics",
       categoryLabel: "Forensics",
       points: 400,
       difficulty: 4,
-      flagSha256: "5c6d7e8f90123456789abcdef0123456789abcdef0123456789abcdef012345",
+      flagSha256: "353ef6056cf5653545318b1060c9dbc931f2747b2181097d187e01b470680bb6",
       description:
-        "Analyze a memory dump from an FGCU lab VM to extract a short secret string. The flag is `FGCU{forensics_memory_fgcu}`.",
+        "In the auth logs from the previous Forensics challenge, there was a hacker successfully stopped by our cybersecurity measures. Find the IP address associated with the 'hacker' user in the auth logs from the previous challenge. The flag is `FGCU{ip_address_here}` with dots replaced by underscores.",
       hints: [
-        "Use strings and volatility-like techniques to search memory.",
-        "Look for process memory that may contain credentials or secrets."
+        "Use Ctrl+F to find the 'hacker' user's entries."
       ],
-      resources: [
-        {
-          label: "Download memory dump (raw)",
-          href: "assets/fgcu_memory_dump.raw",
-          download: "fgcu_memory_dump.raw"
-        }
-      ]
+      resources: []
     },
     {
-      id: "023",
-      title: "FGCU Forensics Challenge A",
+      id: "017",
+      title: "NetBIOS Identification",
       category: "forensics",
       categoryLabel: "Forensics",
       points: 500,
       difficulty: 5,
-      flagSha256: "6d7e8f90123456789abcdef0123456789abcdef0123456789abcdef01234567",
+      flagSha256: "ea827a75ac17cf0bd1150e1ba2ef38c9de698e70dee9fcc28f21cf5ac1354afe",
       description:
-        "A complex FGCU incident simulation: combine network, disk, and memory artifacts to recover `FGCU{forensics_talonA_fgcu}`.",
+        "We found a weird NetBIOS name registration recently on an FGCU computer lab workstation, can you figure out what 'hostname' this workstation has: EOGPHEGIGJGOGHFEGPFDGFGFEIGFHCGFAA",
       hints: [
-        "This is a multi-source correlation exercise.",
-        "Document each artifact and how it links to the next."
+        "Maybe try using a decoder found online?"
       ],
-      resources: [
-        {
-          label: "Forensics challenge bundle (pcap, disk, memory)",
-          href: "assets/forensics_talonA_bundle.zip",
-          download: "forensics_talonA_bundle.zip"
-        }
-      ]
+      resources: []
     },
     {
-      id: "024",
-      title: "FGCU Forensics Challenge B",
+      id: "018",
+      title: "NetBIOS Identification 2",
       category: "forensics",
       categoryLabel: "Forensics",
       points: 500,
       difficulty: 5,
-      flagSha256: "7e8f90123456789abcdef0123456789abcdef0123456789abcdef0123456789",
+      flagSha256: "37ceef9125c3af980d534e0a7821faafbea68c172cb24efa876101032e2095a2",
       description:
-        "The hardest forensics problem: a stealthy exfiltration scenario on an FGCU lab network. The flag is `FGCU{forensics_talonB_fgcu}`.",
+        "The NetBIOS oddities from the first Identification challenge continue, now with two different names. Decode them both and combine them to find the flag: EOGPHHFPFJGPGHFFPEIGBHGGFFPEHGPGOAA and GFFPGBGOGEFPGEGPGOGFFPGJHEFPEFGBAA",
       hints: [
-        "Expect obfuscated artifacts and subtle timing clues.",
-        "Patience and methodical correlation are key."
+        "Much like last time, there might be an online decoder you can use."
       ],
-      resources: [
-        {
-          label: "Forensics challenge bundle B (pcap, logs, memory)",
-          href: "assets/forensics_talonB_bundle.zip",
-          download: "forensics_talonB_bundle.zip"
-        }
-      ]
+      resources: []
     },
     {
-      id: "025",
+      id: "019",
       title: "FGCU Crackme 1",
       category: "reverse",
       categoryLabel: "Reverse Engineering",
@@ -345,7 +317,7 @@ export const CHALLENGES_EMBEDDED = {
       ]
     },
     {
-      id: "026",
+      id: "020",
       title: "FGCU JS Obfuscation",
       category: "reverse",
       categoryLabel: "Reverse Engineering",
@@ -367,7 +339,7 @@ export const CHALLENGES_EMBEDDED = {
       ]
     },
     {
-      id: "005",
+      id: "021",
       title: "Obfuscated",
       category: "reverse",
       categoryLabel: "Reverse Engineering",
@@ -390,7 +362,7 @@ export const CHALLENGES_EMBEDDED = {
       ],
     },
     {
-      id: "028",
+      id: "022",
       title: "FGCU Obfuscation Lab",
       category: "reverse",
       categoryLabel: "Reverse Engineering",
@@ -412,7 +384,7 @@ export const CHALLENGES_EMBEDDED = {
       ]
     },
     {
-      id: "029",
+      id: "023",
       title: "FGCU Reverse Challenge A",
       category: "reverse",
       categoryLabel: "Reverse Engineering",
@@ -434,7 +406,7 @@ export const CHALLENGES_EMBEDDED = {
       ]
     },
     {
-      id: "030",
+      id: "024",
       title: "FGCU Reverse Challenge B",
       category: "reverse",
       categoryLabel: "Reverse Engineering",
@@ -456,7 +428,7 @@ export const CHALLENGES_EMBEDDED = {
       ]
     },
     {
-      id: "031",
+      id: "025",
       title: "FGCU Stego 1",
       category: "stego",
       categoryLabel: "Steganography",
@@ -477,7 +449,7 @@ export const CHALLENGES_EMBEDDED = {
       ]
     },
     {
-      id: "032",
+      id: "026",
       title: "FGCU Stego 2",
       category: "stego",
       categoryLabel: "Steganography",
@@ -496,7 +468,7 @@ export const CHALLENGES_EMBEDDED = {
       ]
     },
     {
-      id: "033",
+      id: "027",
       title: "FGCU Stego 3",
       category: "stego",
       categoryLabel: "Steganography",
@@ -515,7 +487,7 @@ export const CHALLENGES_EMBEDDED = {
       ]
     },
     {
-      id: "034",
+      id: "028",
       title: "FGCU Stego 4",
       category: "stego",
       categoryLabel: "Steganography",
@@ -534,7 +506,7 @@ export const CHALLENGES_EMBEDDED = {
       ]
     },
     {
-      id: "035",
+      id: "029",
       title: "FGCU Stego 5",
       category: "stego",
       categoryLabel: "Steganography",
@@ -556,7 +528,7 @@ export const CHALLENGES_EMBEDDED = {
       ]
     },
     {
-      id: "036",
+      id: "030",
       title: "FGCU Stego 6",
       category: "stego",
       categoryLabel: "Steganography",
@@ -578,7 +550,7 @@ export const CHALLENGES_EMBEDDED = {
       ]
     },
     {
-      id: "006",
+      id: "031",
       title: "Breach Report",
       category: "osint",
       categoryLabel: "OSINT",
