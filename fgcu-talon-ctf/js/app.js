@@ -757,10 +757,6 @@ async function boot() {
     });
   }
 
-  document.getElementById("btn-scoreboard-nav")?.addEventListener("click", () => {
-    showView("scoreboard");
-  });
-
   document.getElementById("btn-back-dashboard")?.addEventListener("click", () => {
     showView("dashboard");
     renderDashboard();
@@ -778,7 +774,39 @@ async function boot() {
 
   wireFilters();
   renderDashboard();
-  showView("landing");
+
+  // Respect the incoming path so Azure-auth redirects land on the correct view
+  const path = window.location.pathname || "/";
+  const base = "/"; // change to "/fgcu-talon-ctf/" if your app is hosted under a subpath
+
+  function routeToInitialView(p) {
+    // Normalize path relative to base
+    let rel = p;
+    if (base !== "/" && p.startsWith(base)) {
+      rel = p.slice(base.length - 1); // keep leading slash
+    }
+
+    if (rel === "/" || rel === "/index.html") {
+      showView("landing");
+    } else if (rel.startsWith("/dashboard")) {
+      showView("dashboard");
+      renderDashboard();
+    } else if (rel.startsWith("/view-challenge") || rel.startsWith("/challenge")) {
+      // If you want to support deep linking to a specific challenge, parse the id from the path
+      // Example path: /view-challenge?id=003 or /challenge/003
+      // Fallback: open dashboard
+      showView("dashboard");
+      renderDashboard();
+    } else if (rel.startsWith("/view-scoreboard") || rel.startsWith("/scoreboard")) {
+      showView("scoreboard");
+      renderScoreboard();
+    } else {
+      // Default fallback
+      showView("landing");
+    }
+  }
+
+  routeToInitialView(path);
 }
 
 boot();
