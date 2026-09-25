@@ -1,1 +1,47 @@
-{"routes":[{"route":"/","serve":"/index.html"},{"route":"/.auth/*","allowedRoles":["anonymous"]},{"route":"/dashboard","allowedRoles":["authenticated"]},{"route":"/view-challenge/*","allowedRoles":["authenticated"]}],"navigationFallback":{"rewrite":"/index.html"}}
+{
+  "routes": [
+    {
+      "route": "/",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/index.html",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/dashboard",
+      "serve": "/index.html",
+      "allowedRoles": ["authenticated"]
+    },
+    {
+      "route": "/view-dashboard",
+      "serve": "/index.html",
+      "allowedRoles": ["authenticated"]
+    },
+    {
+      "route": "/view-challenge",
+      "serve": "/index.html",
+      "allowedRoles": ["authenticated"]
+    },
+    {
+      "route": "/view-scoreboard",
+      "serve": "/index.html",
+      "allowedRoles": ["authenticated"]
+    },
+    {
+      "route": "/fgcu-talon-ctf/*",
+      "serve": "/index.html",
+      "allowedRoles": ["authenticated"]
+    }
+  ],
+  "auth": {
+    "identityProviders": {
+      "github": {
+        "registration": {
+          "clientIdSettingName": "GITHUB_CLIENT_ID",
+          "clientSecretSettingName": "GITHUB_CLIENT_SECRET"
+        }
+      }
+    }
+  }
+}
