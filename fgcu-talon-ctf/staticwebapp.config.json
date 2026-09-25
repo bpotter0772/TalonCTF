@@ -1,1 +1,21 @@
-{"routes":[{"route":"/","allowedRoles":["anonymous"]},{"route":"/index.html","allowedRoles":["anonymous"]},{"route":"/dashboard","serve":"/index.html","allowedRoles":["authenticated"]},{"route":"/view-dashboard","serve":"/index.html","allowedRoles":["authenticated"]},{"route":"/view-challenge","serve":"/index.html","allowedRoles":["authenticated"]},{"route":"/view-scoreboard","serve":"/index.html","allowedRoles":["authenticated"]},{"route":"/fgcu-talon-ctf/*","serve":"/index.html","allowedRoles":["authenticated"]}]}
+{
+  "routes": [
+    { "route": "/", "allowedRoles": ["anonymous"] },
+    { "route": "/index.html", "allowedRoles": ["anonymous"] },
+    { "route": "/assets/*", "allowedRoles": ["anonymous"] },
+    { "route": "/css/*", "allowedRoles": ["anonymous"] },
+    { "route": "/js/*", "allowedRoles": ["anonymous"] },
+    { "route": "/data/*", "allowedRoles": ["anonymous"] },
+
+    { "route": "/dashboard", "serve": "/index.html", "allowedRoles": ["authenticated"] },
+    { "route": "/view-dashboard", "serve": "/index.html", "allowedRoles": ["authenticated"] },
+    { "route": "/view-challenge", "serve": "/index.html", "allowedRoles": ["authenticated"] },
+    { "route": "/view-scoreboard", "serve": "/index.html", "allowedRoles": ["authenticated"] },
+    { "route": "/challenge/*", "serve": "/index.html", "allowedRoles": ["authenticated"] },
+    { "route": "/scoreboard", "serve": "/index.html", "allowedRoles": ["authenticated"] }
+  ],
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": [ "/assets/*", "/css/*", "/js/*", "/data/*", "/favicon.ico" ]
+  },
+}
