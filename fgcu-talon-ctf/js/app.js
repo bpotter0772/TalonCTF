@@ -757,11 +757,6 @@ async function boot() {
     });
   }
 
-  document.getElementById("btn-enter")?.addEventListener("click", () => {
-    showView("dashboard");
-    renderDashboard();
-  });
-
   document.getElementById("btn-scoreboard-nav")?.addEventListener("click", () => {
     showView("scoreboard");
   });
