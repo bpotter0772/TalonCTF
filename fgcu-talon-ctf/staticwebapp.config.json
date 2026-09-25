@@ -1,11 +1,1 @@
-{
-  "routes": [
-    { "route": "/", "serve": "/index.html" },
-    { "route": "/.auth/*", "allowedRoles": ["anonymous"] },
-    { "route": "/dashboard", "allowedRoles": ["authenticated"], "rewrite": "/index.html" },
-    { "route": "/view-challenge/*", "allowedRoles": ["authenticated"], "rewrite": "/index.html" }
-  ],
-  "navigationFallback": {
-    "rewrite": "/index.html"
-  }
-}
+{"routes":[{"route":"/","serve":"/index.html"},{"route":"/.auth/*","allowedRoles":["anonymous"]},{"route":"/dashboard","allowedRoles":["authenticated"],"rewrite":"/index.html"},{"route":"/view-challenge/*","allowedRoles":["authenticated"],"rewrite":"/index.html"}],"navigationFallback":{"rewrite":"/index.html"},"auth":{"rolesSource":"DEFAULT","identityProviders":{"github":{"registration":{"clientIdSettingName":"GITHUB_CLIENT_ID","clientSecretSettingName":"GITHUB_CLIENT_SECRET_APP_SETTING_NAME"}}}}}
